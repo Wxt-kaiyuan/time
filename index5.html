@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style:none;
+        }
+        .box{
+            width:400px;
+            margin:100px auto;
+        }
+        input{
+            width:300px;
+            height:40px;
+            line-height:40px;
+            font-size:15px;
+            border:1px solid #1ea3d8;
+            float:left;
+        }
+        button{
+            width:60px;
+            height:42px;
+            border:none;
+            color:white;
+            background-color:#1ea3d8;
+            float:left;
+            cursor:pointer;
+        }
+        .clear{
+            clear:both;
+        }
+        ul{
+            width:300px;
+            border:1px solid #cec9bf;
+        }
+        li{
+            width:300px;
+            height:30px;
+            line-height:30px;
+            text-indent:10px;
+            cursor:pointer;
+        }
+        li:hover{
+            background-color:#c0b9d8;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="text"/><button>搜索</button>
+    <div class="clear"></div>
+    <ul></ul>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.js"></script>
+<script>
+    $(function(){
+        $('ul').hide();
+        $('input').on('keyup',function(){
+            $('ul').show();
+            var txt=$(this).val();
+            $.ajax({
+                url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?',
+                data:{wd:txt},
+                type:'get',
+                dataType:'jsonp',
+                jsonp:'cb',
+                success:function(data){
+                    var str='';
+                    for(var i=0;i<data.s.length;i++){
+                        str+='<li>'+data.s[i]+'</li>';
+                    }$('ul').html(str);
+                },
+                error:function(){
+                    alert('获取失败')
+                }
+            })
+        })
+    })
+</script>
+</html>
